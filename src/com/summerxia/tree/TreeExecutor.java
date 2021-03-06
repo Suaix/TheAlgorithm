@@ -11,7 +11,23 @@ public class TreeExecutor implements AlgorithmsExecutor {
     @Override
     public void execAlgorithmCase() {
 //        testInorderTraversal();
-        testValideBST();
+//        testValideBST();
+        testBaseTraversal();
+    }
+
+    private void testBaseTraversal(){
+        TreeNode root = new TreeNode(5);
+        TreeNode t1 = new TreeNode(4);
+        TreeNode t2 = new TreeNode(7);
+        TreeNode t3 = new TreeNode(2);
+        TreeNode t4 = new TreeNode(6);
+        TreeNode t5 = new TreeNode(8);
+        root.left = t1;
+        root.right = t2;
+        t1.left = t3;
+        t2.left = t4;
+        t2.right = t5;
+        baseTreeTraversal(root);
     }
 
     private void testValideBST() {
@@ -49,11 +65,6 @@ public class TreeExecutor implements AlgorithmsExecutor {
         return true;
     }
 
-    private boolean isValidBST2(TreeNode root){
-        Stack<TreeNode> stack = new Stack<>();
-        return true;
-    }
-
     private void testInorderTraversal() {
         TreeNode treeNode = new TreeNode(1);
         TreeNode t1 = new TreeNode(2);
@@ -87,17 +98,41 @@ public class TreeExecutor implements AlgorithmsExecutor {
         }
     }
 
+    /**
+     * 递归遍历二叉树
+     * @param root
+     */
     private void baseTreeTraversal(TreeNode root){
         if (root == null){
             return;
         }
         // 先获取值：前序遍历
         int val = root.val;
+        System.out.println(val);
         baseTreeTraversal(root.left);
         // 先遍历左侧再取值：中序遍历
         // int val = root.val;
         baseTreeTraversal(root.right);
         // 最后取值：后序遍历
         // int val = root.val;
+    }
+
+    /**
+     * 迭代遍历二叉树
+     * @param root
+     */
+    private void traversalTree(TreeNode root){
+        List<TreeNode> list = new ArrayList<>();
+
+        while (!list.isEmpty() || root != null){
+            while (root != null){
+                list.add(root);
+                root = root.left;
+            }
+            root = list.remove(list.size()-1);
+            // 这里处理值为：中序遍历；
+            int val = root.val;
+            root = root.right;
+        }
     }
 }
